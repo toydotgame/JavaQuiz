@@ -26,10 +26,9 @@ public class GUI {
 	
 	Insets inset = frame.getToolkit().getScreenInsets(frame.getGraphicsConfiguration());
 	int yOffset = inset.bottom;
-	double scaleFactor = DataStorage.windowScaleFactor;
 	
 	public GUI(String screen) {
-		frame.setSize((int) Math.round(700 * scaleFactor), (int) Math.round(390 * scaleFactor) + yOffset);
+		frame.setSize((int) Math.round(700 * DataStorage.windowScaleFactor), (int) Math.round(390 * DataStorage.windowScaleFactor) + yOffset);
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
 				
@@ -47,7 +46,7 @@ public class GUI {
 				End();
 				break;
 			default:
-				ErrorPopup("");
+				Popup("exit");
 				break;
 		}
 		
@@ -81,34 +80,54 @@ public class GUI {
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 	
-	void ErrorPopup(String error) {
-		frame.setSize((int) Math.round(400 * scaleFactor), (int) Math.round(100 * scaleFactor) + yOffset); 
-		frame.setLocationRelativeTo(null);
+	void Popup(String error) {
+		JDialog popupFrame = new JDialog(new JFrame(), "Popup");
+		popupFrame.setSize((int) Math.round(400 * DataStorage.windowScaleFactor), (int) Math.round(100 * DataStorage.windowScaleFactor) + yOffset); 
+		popupFrame.setResizable(false);
+		popupFrame.setLocationRelativeTo(null);
+		
+		JPanel popupPanel = new JPanel();
+		popupPanel.setLayout(null);
+		popupFrame.add(popupPanel);
 		
 		JLabel errorText = new JLabel();
 		errorText.setBounds(Scale(20, 20, 360, 60));
 		errorText.setVerticalAlignment(SwingConstants.TOP);
 		switch(error) {
+			case "exit":
+				errorText.setText("Are you sure you want to quit? All progress will be lost.");
+				
+				JButton confirmButton = new JButton("Yes");
+				confirmButton.setBounds(Scale(230, 60, 60, 20));
+				confirmButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						Main.Exit();
+					}
+				});
+				confirmButton.setFont(DataStorage.genericText);
+				confirmButton.setFocusable(false);
+				popupPanel.add(confirmButton);
+				break;
 			default:
 				errorText.setText("An unknown error occured.");
+				
+				JButton button = new JButton("Exit");
+				button.setBounds(Scale(300, 60, 60, 20));
+				button.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						Main.Exit();
+					}
+				});
+				button.setFont(DataStorage.genericText);
+				button.setFocusable(false); // Remove the tab index box thing from around the "Exit" text.
+				popupPanel.add(button);
 				break;
 		}
 		errorText.setFont(DataStorage.genericText);
-		panel.add(errorText);
-		
-		JButton button = new JButton("Exit");
-		button.setBounds(Scale(300, 60, 60, 20));
-		button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Main.Exit();
-			}
-		});
-		button.setFont(DataStorage.genericText);
-		button.setFocusable(false); // Remove the tab index box thing from around the "Exit" text.
-		panel.add(button);
+		popupPanel.add(errorText);
 	}
 	
 	Rectangle Scale(int x, int y, int width, int height) {
-		return new Rectangle((int) Math.round(x * scaleFactor), (int) Math.round(y * scaleFactor), (int) Math.round(width * scaleFactor), (int) Math.round(height * scaleFactor));
+		return new Rectangle((int) Math.round(x * DataStorage.windowScaleFactor), (int) Math.round(y * DataStorage.windowScaleFactor), (int) Math.round(width * DataStorage.windowScaleFactor), (int) Math.round(height * DataStorage.windowScaleFactor));
 	}
 }
