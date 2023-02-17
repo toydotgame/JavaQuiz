@@ -2,10 +2,13 @@ import java.awt.Insets;
 import java.awt.Rectangle;
 
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 /* AUTHOR: toydotgame
  * CREATED ON: 2023-02-16
@@ -18,7 +21,6 @@ public class GUI {
 	static JDialog frame = new JDialog(new JFrame(), "Year 9 Mathematics Quiz");
 	JPanel panel = new JPanel();
 	JLabel title;
-	JLabel description;
 	
 	static Insets inset = frame.getToolkit().getScreenInsets(frame.getGraphicsConfiguration());
 	static int yOffset = inset.bottom;
@@ -44,7 +46,7 @@ public class GUI {
 				End();
 				break;
 			default:
-				new Popup("exit");
+				new Popup("");
 				break;
 		}
 	}
@@ -60,12 +62,20 @@ public class GUI {
 		title.setFont(DataStorage.titleText);
 		panel.add(title);
 		
-		description = new JLabel("<html><p align=\"justify\">" + DataStorage.descriptionText + "</p></html>"); // HTML parsing allows for word wrap.
+		JLabel description = new JLabel("<html><p align=\"justify\">" + DataStorage.descriptionText + "</p></html>"); // HTML parsing allows for word wrap.
 		description.setBounds(Scale(75, 95, 550, 195));
 		description.setHorizontalAlignment(JLabel.LEFT);
 		description.setVerticalAlignment(JLabel.TOP);
 		description.setFont(DataStorage.genericText);
 		panel.add(description);
+		
+		JButton startButton = new JButton("Start");
+		startButton.setBounds(Scale(250, 310, 200, 60));
+		startButton.setFocusable(false);
+		startButton.setFont(DataStorage.buttonText);
+		panel.add(startButton);
+		
+		frame.repaint(); // Redraw because the frame had been set visible prior to the elements being drawn.
 	}
 	
 	void Question() {
