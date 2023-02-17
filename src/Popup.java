@@ -9,8 +9,9 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 public class Popup {
-	JDialog frame = new JDialog(new JFrame(), "Error");
+	JDialog frame = new JDialog(new JFrame(), "Fatal Error");
 	JPanel panel = new JPanel();
+	JButton button;
 	
 	public Popup(String error) {
 		frame.setSize((int) Math.round(400 * DataStorage.windowScaleFactor), (int) Math.round(100 * DataStorage.windowScaleFactor) + GUI.yOffset); 
@@ -25,6 +26,7 @@ public class Popup {
 		errorText.setVerticalAlignment(SwingConstants.TOP);
 		switch(error) { // Contains pseudo-methods for creating each different kind of prompt.
 			case "exit":
+				frame.setTitle("Confirmation Dialog");
 				errorText.setText("Are you sure you want to quit? All progress will be lost.");
 				
 				JButton confirmButton = new JButton("Yes");
@@ -38,23 +40,37 @@ public class Popup {
 				confirmButton.setFocusable(false);
 				panel.add(confirmButton);
 				
-				JButton denyButton = new JButton("No");
-				denyButton.setBounds(GUI.Scale(300, 60, 60, 20));
-				denyButton.addActionListener(new ActionListener() {
+				button = new JButton("No");
+				button.setBounds(GUI.Scale(300, 60, 60, 20));
+				button.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						frame.dispose();
 						GUI.frame.requestFocus();
 					}
 				});
-				denyButton.setFont(DataStorage.genericText);
-				denyButton.setFocusable(false);
-				panel.add(denyButton);
+				button.setFont(DataStorage.genericText);
+				button.setFocusable(false);
+				panel.add(button);
 				
+				break;
+			case "outOfBounds":
+				errorText.setText("Out of Bounds Exception: This question does not exist.");
+
+				button = new JButton("Exit");
+				button.setBounds(GUI.Scale(300, 60, 60, 20));
+				button.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						Main.Exit();
+					}
+				});
+				button.setFont(DataStorage.genericText);
+				button.setFocusable(false); // Remove the tab index box thing from around the "Exit" text.
+				panel.add(button);
 				break;
 			default:
 				errorText.setText("An unknown error occured.");
 				
-				JButton button = new JButton("Exit");
+				button = new JButton("Exit");
 				button.setBounds(GUI.Scale(300, 60, 60, 20));
 				button.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
