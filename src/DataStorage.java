@@ -32,7 +32,7 @@ public class DataStorage {
 	public static int[] selectedAnswer = new int[questionAmount];
 	public static int score;
 	public static int percentageScore = 0;
-	public static String windowIcon = "obamna.jpg";
+	public static String windowIcon = "media/favicon.png";
 	public static String[] unselIcons = {
 		"media/radios/unsel/red.png",
 		"media/radios/unsel/green.png",
@@ -84,10 +84,10 @@ public class DataStorage {
 	};
 	public static String[] questionImages = {
 		"obamna.jpg",
-		"",
-		"sus.png",
-		"",
-		""
+		"media/favicon.png",
+		"media/favicon.png",
+		"media/favicon.png",
+		"media/favicon.png"
 	};
 	public static String[] feedback = {
 		"How‽",        // E
