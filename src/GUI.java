@@ -239,6 +239,28 @@ public class GUI {
 	
 	public static void End() {
 		DataStorage.inQuiz = false;
+		panel.removeAll();
+		frame.setTitle("Year 9 Trigonometry Quiz – End");
+		
+		title = new JLabel("<html>Score: <font color=\"" + DataStorage.gradeColors[DataStorage.gradeID] + "\">"
+						 + DataStorage.score + "/" + DataStorage.questionAmount + ", "
+						 + DataStorage.percentageScore + "% "
+						 + "(" + DataStorage.grade + ")"
+						 + "</font></html>");
+		title.setBounds(Scale(50, 25, 600, 50));
+		title.setBorder(BorderFactory.createLineBorder(DataStorage.borderColor, DataStorage.borderWidth));
+		title.setHorizontalAlignment(JLabel.CENTER);
+		title.setVerticalAlignment(JLabel.CENTER);
+		title.setFont(DataStorage.titleText);
+		panel.add(title);
+		
+		description = new JLabel("<html><p align=\"justify\">" + DataStorage.feedback[DataStorage.gradeID] + "</p>"
+							   + "<br><br><b>You may now close the window.</b></html>");
+		description.setBounds(Scale(75, 95, 550, 195));
+		description.setHorizontalAlignment(JLabel.LEFT);
+		description.setVerticalAlignment(JLabel.TOP);
+		description.setFont(DataStorage.genericText);
+		panel.add(description);
 		
 		frame.repaint();
 	}

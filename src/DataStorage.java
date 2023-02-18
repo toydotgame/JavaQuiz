@@ -31,7 +31,7 @@ public class DataStorage {
 	public static String[] working = new String[questionAmount];
 	public static int[] selectedAnswer = new int[questionAmount];
 	public static int score;
-	public static String percentageScore = "0%";
+	public static int percentageScore = 0;
 	public static String windowIcon = "obamna.jpg";
 	public static String[] unselIcons = {
 		"media/radios/unsel/red.png",
@@ -44,6 +44,15 @@ public class DataStorage {
 		"media/radios/sel/green.png",
 		"media/radios/sel/yellow.png",
 		"media/radios/sel/blue.png"
+	};
+	public static String grade;
+	public static int gradeID;
+	public static String[] gradeColors = {
+		"#ff0d0d", // Red
+		"#ff8e15", // Orange
+		"#fab733", // Yellow
+		"#acb334", // Apple
+		"#69b34c"  // Green
 	};
 
 	// Text & Arrays:
@@ -79,5 +88,12 @@ public class DataStorage {
 		"sus.png",
 		"",
 		""
+	};
+	public static String[] feedback = {
+		"How‽",        // E
+		"You…suck",    // D
+		"You passed.", // C
+		"Good job!",   // B
+		"Perfect!"     // A
 	};
 }

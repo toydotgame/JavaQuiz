@@ -69,7 +69,27 @@ public class Main extends Thread {
 			}
 		}
 		
-		DataStorage.percentageScore = (int) Math.round((double) DataStorage.score / DataStorage.questionAmount * 100) + "%";
+		DataStorage.percentageScore = (int) Math.round((double) DataStorage.score / DataStorage.questionAmount * 100);
+		
+		// Switch cases won't get you out of this:
+		if(DataStorage.percentageScore <= 20) {
+			DataStorage.grade = "E";
+			DataStorage.gradeID = 0;
+		} else if(DataStorage.percentageScore <= 40) {
+			DataStorage.grade = "D";
+			DataStorage.gradeID = 1;
+		} else if(DataStorage.percentageScore <= 60) {
+			DataStorage.grade = "C";
+			DataStorage.gradeID = 2;
+		} else if(DataStorage.percentageScore <= 80) {
+			DataStorage.grade = "B";
+			DataStorage.gradeID = 3;
+		} else {
+			DataStorage.grade = "A";
+			DataStorage.gradeID = 4;
+		}
+		
+		GUI.End();
 	}
 	
 	public static void Exit(boolean override) {
