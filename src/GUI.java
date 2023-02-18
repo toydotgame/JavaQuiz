@@ -8,6 +8,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -28,6 +29,7 @@ public class GUI {
 	static JDialog frame = new JDialog(new JFrame(), "Year 9 Trigonometry Quiz");
 	static JPanel panel = new JPanel();
 	static JLabel title;
+	static JLabel description;
 	
 	static int yOffset = frame.getToolkit().getScreenInsets(frame.getGraphicsConfiguration()).bottom;
 	
@@ -74,7 +76,7 @@ public class GUI {
 		title.setFont(DataStorage.titleText);
 		panel.add(title);
 		
-		JLabel description = new JLabel("<html><p align=\"justify\">" + DataStorage.descriptionText + "</p></html>"); // HTML parsing allows for word wrap.
+		description = new JLabel("<html><p align=\"justify\">" + DataStorage.descriptionText + "</p></html>"); // HTML parsing allows for word wrap.
 		description.setBounds(Scale(75, 95, 550, 195));
 		description.setHorizontalAlignment(JLabel.LEFT);
 		description.setVerticalAlignment(JLabel.TOP);
@@ -138,6 +140,7 @@ public class GUI {
 		workingArea.setLineWrap(true);
 		panel.add(workingArea);
 		
+		ButtonGroup answerRadioGroup = new ButtonGroup();
 		JRadioButton[] answerRadios = {
 				new JRadioButton(DataStorage.answers[DataStorage.question - 1][0]),
 				new JRadioButton(DataStorage.answers[DataStorage.question - 1][1]),
@@ -145,9 +148,22 @@ public class GUI {
 				new JRadioButton(DataStorage.answers[DataStorage.question - 1][3])
 		};
 		for(int i = 0; i < 4; i++) {
-			answerRadios[i].setBounds(Scale(466, 136 + (i * 48), 220, 20));
+			answerRadios[i].setBounds(Scale(466, 136 + (i * 48), 220, 20)); // Default vertical alignment is centre, so the spacing works nicely.
+			answerRadios[i].setFont(DataStorage.answerText);
+			answerRadioGroup.add(answerRadios[i]);
 			panel.add(answerRadios[i]);
 		}
+		
+		JButton backButton = new JButton("← Back");
+		backButton.setBounds(Scale(50, 350, 100, 30));
+		backButton.setFocusable(false);
+		backButton.setFont(DataStorage.buttonText);
+		backButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// TODO: Back a question.
+			}
+		});
+		panel.add(backButton);
 		
 		frame.repaint();
 	}

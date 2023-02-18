@@ -22,6 +22,7 @@ public class DataStorage {
 	public static Font titleText = new Font(font, Font.BOLD, titleSize);
 	public static Font genericText = new Font(font, Font.PLAIN, textSize);
 	public static Font buttonText = new Font(font, Font.BOLD, buttonTextSize);
+	public static Font answerText = new Font(font, Font.ITALIC, textSize);
 	public static String theme = "com.sun.java.swing.plaf.gtk.GTKLookAndFeel"; // TODO: Test compatibility with Win10.
 	public static int question = 0;
 	public static int questionAmount = 5;
