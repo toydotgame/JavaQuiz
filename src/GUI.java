@@ -3,6 +3,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -29,6 +31,12 @@ public class GUI {
 		frame.setSize((int) Math.round(700 * DataStorage.windowScaleFactor), (int) Math.round(390 * DataStorage.windowScaleFactor) + yOffset);
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
+		frame.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE); // Ignore Swing window close behaviour in favour of the window listener:
+		frame.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				Main.Exit(false);
+			}
+		});
 				
 		panel.setLayout(null);
 		panel.setFocusable(true);
@@ -61,8 +69,6 @@ public class GUI {
 	}
 	
 	public static void Main() {
-		frame.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		
 		title = new JLabel("Year 9 Mathematics Quiz");
 		title.setBounds(Scale(50, 25, 600, 50));
 		title.setBorder(BorderFactory.createLineBorder(DataStorage.borderColor, DataStorage.borderWidth));
@@ -93,9 +99,9 @@ public class GUI {
 	}
 	
 	public static void Question(int question) {
+		DataStorage.inQuiz = true;
 		DataStorage.question = question;
 		panel.removeAll();
-		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		
 		frame.setTitle("Trigonometry Quiz – Question " + DataStorage.question + " of " + DataStorage.questionAmount);
 		
@@ -116,8 +122,8 @@ public class GUI {
 		frame.repaint();
 	}
 	
-	void End() {
-		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+	public static void End() {
+		DataStorage.inQuiz = false;
 		
 		frame.repaint();
 	}

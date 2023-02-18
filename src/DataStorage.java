@@ -24,6 +24,7 @@ public class DataStorage {
 	public static String theme = "com.sun.java.swing.plaf.gtk.GTKLookAndFeel"; // TODO: Test compatibility with Win10.
 	public static int question = 0;
 	public static int questionAmount = 5;
+	public static boolean inQuiz = false;
 
 	// Text & Arrays:
 	public static String descriptionText = "This is a test for the Year 9 Trigonometry unit. "

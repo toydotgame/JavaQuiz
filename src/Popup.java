@@ -33,7 +33,7 @@ public class Popup {
 				confirmButton.setBounds(GUI.Scale(230, 60, 60, 20));
 				confirmButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						Main.Exit();
+						Main.Exit(true);
 					}
 				});
 				confirmButton.setFont(DataStorage.genericText);
@@ -60,7 +60,7 @@ public class Popup {
 				button.setBounds(GUI.Scale(300, 60, 60, 20));
 				button.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						Main.Exit();
+						Main.Exit(true);
 					}
 				});
 				button.setFont(DataStorage.genericText);
@@ -74,7 +74,7 @@ public class Popup {
 				button.setBounds(GUI.Scale(300, 60, 60, 20));
 				button.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						Main.Exit();
+						Main.Exit(true);
 					}
 				});
 				button.setFont(DataStorage.genericText);

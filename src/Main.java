@@ -19,7 +19,9 @@ public class Main extends Thread {
 		GUI.Question(DataStorage.question);
 	}
 	
-	public static void Exit() {
-		System.exit(0);
+	public static void Exit(boolean override) {
+		if(override || !DataStorage.inQuiz) {
+			System.exit(0);
+		}
 	}
 }
