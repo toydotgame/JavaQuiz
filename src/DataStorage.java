@@ -33,6 +33,18 @@ public class DataStorage {
 	public static int score;
 	public static String percentageScore = "0%";
 	public static String windowIcon = "obamna.jpg";
+	public static String[] unselIcons = {
+		"media/radios/unsel/red.png",
+		"media/radios/unsel/green.png",
+		"media/radios/unsel/yellow.png",
+		"media/radios/unsel/blue.png"
+	};
+	public static String[] selIcons = {
+		"media/radios/sel/red.png",
+		"media/radios/sel/green.png",
+		"media/radios/sel/yellow.png",
+		"media/radios/sel/blue.png"
+	};
 
 	// Text & Arrays:
 	public static String descriptionText = "This is a test for the Year 9 Trigonometry unit. "

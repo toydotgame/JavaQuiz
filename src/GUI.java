@@ -2,6 +2,8 @@ import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
@@ -40,7 +42,7 @@ public class GUI {
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE); // Ignore Swing window close behaviour in favour of the window listener:
-		frame.setIconImage(new ImageIcon(GUI.class.getResource(DataStorage.windowIcon)).getImage());
+		frame.setIconImage(LoadScaledImage(DataStorage.windowIcon, 64).getImage());
 		frame.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
 				Main.Exit(false);
@@ -156,7 +158,7 @@ public class GUI {
 		panel.add(title);
 		
 		JLabel image = new JLabel();
-		image.setIcon(LoadScaledImage(DataStorage.questionImages[DataStorage.question - 1]));
+		image.setIcon(LoadScaledImage(DataStorage.questionImages[DataStorage.question - 1], 240));
 		image.setBounds(Scale(50, 100, 240, 240));
 		image.setBorder(BorderFactory.createLineBorder(DataStorage.imageBorderColor, DataStorage.borderWidth));
 		panel.add(image);
@@ -184,11 +186,13 @@ public class GUI {
 				new JRadioButton(DataStorage.answers[DataStorage.question - 1][2]),
 				new JRadioButton(DataStorage.answers[DataStorage.question - 1][3])
 		};
+		AddRadioActionListeners();
 		for(int i = 0; i < 4; i++) {
 			answerRadios[i].setBounds(Scale(466, 136 + (i * 48), 220, 20)); // Default vertical alignment is centre, so the spacing works nicely.
 			answerRadios[i].setFont(DataStorage.answerText);
 			answerRadioGroup.add(answerRadios[i]);
 			answerRadios[i].setFocusable(false);
+			answerRadios[i].setIcon(LoadScaledImage(DataStorage.unselIcons[i], 20));
 			panel.add(answerRadios[i]);
 		}
 		try {
@@ -243,13 +247,53 @@ public class GUI {
 		return new Rectangle((int) Math.round(x * DataStorage.windowScaleFactor), (int) Math.round(y * DataStorage.windowScaleFactor), (int) Math.round(width * DataStorage.windowScaleFactor), (int) Math.round(height * DataStorage.windowScaleFactor));
 	}
 	
-	static ImageIcon LoadScaledImage(String path) {
+	static ImageIcon LoadScaledImage(String path, int size) {
 		try {
 			ImageIcon icon = new ImageIcon(GUI.class.getResource(path));
-			icon = new ImageIcon(icon.getImage().getScaledInstance((int) Math.round(240 * DataStorage.windowScaleFactor), (int) Math.round(240 * DataStorage.windowScaleFactor), Image.SCALE_SMOOTH));
+			icon = new ImageIcon(icon.getImage().getScaledInstance((int) Math.round(size * DataStorage.windowScaleFactor), (int) Math.round(size * DataStorage.windowScaleFactor), Image.SCALE_SMOOTH));
 			return icon;
 		} catch(Exception e) { // Usually NullPointer.
 			return null; // No image exists.
 		}
+	}
+	
+	// TODO: Fix this. It is VERY, VERY, VERY bad.
+	public static void AddRadioActionListeners() {
+		answerRadios[0].addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				if(e.getStateChange() == ItemEvent.SELECTED) {
+					answerRadios[0].setIcon(LoadScaledImage(DataStorage.selIcons[0], 20));
+					return;
+				}
+				answerRadios[0].setIcon(LoadScaledImage(DataStorage.unselIcons[0], 20));
+			}
+		});
+		answerRadios[1].addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				if(e.getStateChange() == ItemEvent.SELECTED) {
+					answerRadios[1].setIcon(LoadScaledImage(DataStorage.selIcons[1], 20));
+					return;
+				}
+				answerRadios[1].setIcon(LoadScaledImage(DataStorage.unselIcons[1], 20));
+			}
+		});
+		answerRadios[2].addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				if(e.getStateChange() == ItemEvent.SELECTED) {
+					answerRadios[2].setIcon(LoadScaledImage(DataStorage.selIcons[2], 20));
+					return;
+				}
+				answerRadios[2].setIcon(LoadScaledImage(DataStorage.unselIcons[2], 20));
+			}
+		});
+		answerRadios[3].addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				if(e.getStateChange() == ItemEvent.SELECTED) {
+					answerRadios[3].setIcon(LoadScaledImage(DataStorage.selIcons[3], 20));
+					return;
+				}
+				answerRadios[3].setIcon(LoadScaledImage(DataStorage.unselIcons[3], 20));
+			}
+		});
 	}
 }
