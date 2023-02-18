@@ -1,3 +1,4 @@
+import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -7,11 +8,14 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JTextArea;
 
 /* AUTHOR: toydotgame
  * CREATED ON: 2023-02-16
@@ -105,8 +109,10 @@ public class GUI {
 		
 		frame.setTitle("Trigonometry Quiz – Question " + DataStorage.question + " of " + DataStorage.questionAmount);
 		
+		// Check to see that both question and image exists, otherwise exit:
 		try {
 			String.valueOf(DataStorage.questionText[DataStorage.question - 1]);
+			String.valueOf(DataStorage.questionImages[DataStorage.question - 1]);
 		} catch(ArrayIndexOutOfBoundsException e) {
 			new Popup("outOfBounds");
 		}
@@ -119,6 +125,22 @@ public class GUI {
 		title.setFont(DataStorage.titleText);
 		panel.add(title);
 		
+		JLabel image = new JLabel();
+		image.setIcon(LoadScaledImage(DataStorage.questionImages[DataStorage.question - 1]));
+		image.setBounds(Scale(50, 100, 240, 240));
+		image.setBorder(BorderFactory.createLineBorder(DataStorage.imageBorderColor, DataStorage.borderWidth));
+		panel.add(image);
+		
+		JTextArea workingArea = new JTextArea();
+		workingArea.setBounds(Scale(310, 100, 100, 240));
+		workingArea.setBorder(BorderFactory.createLineBorder(DataStorage.imageBorderColor, DataStorage.borderWidth));
+		workingArea.setLineWrap(true);
+		panel.add(workingArea);
+		
+		JRadioButton radio = new JRadioButton();
+		radio.setBounds(Scale(466, 136, 20, 20));
+		panel.add(radio);
+		
 		frame.repaint();
 	}
 	
@@ -130,5 +152,11 @@ public class GUI {
 	
 	static Rectangle Scale(int x, int y, int width, int height) {
 		return new Rectangle((int) Math.round(x * DataStorage.windowScaleFactor), (int) Math.round(y * DataStorage.windowScaleFactor), (int) Math.round(width * DataStorage.windowScaleFactor), (int) Math.round(height * DataStorage.windowScaleFactor));
+	}
+	
+	static ImageIcon LoadScaledImage(String path) {
+		ImageIcon icon = new ImageIcon(GUI.class.getResource(path));
+		icon = new ImageIcon(icon.getImage().getScaledInstance((int) Math.round(240 * DataStorage.windowScaleFactor), (int) Math.round(240 * DataStorage.windowScaleFactor), Image.SCALE_SMOOTH));
+		return icon;
 	}
 }

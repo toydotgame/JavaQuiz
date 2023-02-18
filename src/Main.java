@@ -15,7 +15,7 @@ public class Main extends Thread {
 	}
 	
 	public static void StartQuiz() {
-		DataStorage.question++;
+		DataStorage.question = 1;
 		GUI.Question(DataStorage.question);
 	}
 	

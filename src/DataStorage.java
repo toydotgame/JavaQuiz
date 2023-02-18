@@ -16,6 +16,7 @@ public class DataStorage {
 	
 	// Public:
 	public static Color borderColor = Color.decode("#008080");
+	public static Color imageBorderColor = Color.decode("#0c0c0c");
 	public static double windowScaleFactor = 1.5;
 	public static int borderWidth = 3;
 	public static Font titleText = new Font(font, Font.BOLD, titleSize);
@@ -34,5 +35,8 @@ public class DataStorage {
 										 + "<br><br><p align=\"center\">Good luck!</p>";
 	public static String[] questionText = {
 		"What is 1 + 1?"
+	};
+	public static String[] questionImages = {
+		"obamna.jpg"
 	};
 }
