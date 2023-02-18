@@ -1,3 +1,6 @@
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -7,11 +10,14 @@ import javax.swing.UnsupportedLookAndFeelException;
  */
 
 public class Main extends Thread {
+	static ExecutorService executor = Executors.newFixedThreadPool(1);
+	static Runnable popupThread = new Popup();
+	
 	public static void main(String[] args) {
 		try {
 			UIManager.setLookAndFeel(DataStorage.theme);
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
-			new Popup("");
+			Popup.Create("");
 			return;
 		}
 		new GUI("main"); // Launches EDT thread (use for GUI only).
@@ -21,7 +27,7 @@ public class Main extends Thread {
 		DataStorage.question = 1;
 		GUI.Question(DataStorage.question);
 	}
-	
+		
 	public static void Exit(boolean override) {
 		if(override || !DataStorage.inQuiz) {
 			System.exit(0);

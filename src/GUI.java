@@ -44,13 +44,6 @@ public class GUI {
 				
 		panel.setLayout(null);
 		panel.setFocusable(true);
-		panel.addKeyListener(new KeyAdapter() {
-			public void keyPressed(KeyEvent e) {
-				if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-					new Popup("exit");
-				}
-			}
-		});
 		frame.add(panel);
 		
 		frame.setVisible(true); // Frame created before drawing content due to popup drawing issues.
@@ -67,7 +60,7 @@ public class GUI {
 				End();
 				break;
 			default:
-				new Popup("");
+				Popup.Create("");
 				break;
 		}
 	}
@@ -106,15 +99,23 @@ public class GUI {
 		DataStorage.inQuiz = true;
 		DataStorage.question = question;
 		panel.removeAll();
+		panel.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+					Popup.Create("exit");
+				}
+			}
+		});
 		
 		frame.setTitle("Trigonometry Quiz – Question " + DataStorage.question + " of " + DataStorage.questionAmount);
 		
-		// Check to see that both question and image exists, otherwise exit:
+		// Check to see that both question, answers, and image exists, otherwise exit:
 		try {
 			String.valueOf(DataStorage.questionText[DataStorage.question - 1]);
 			String.valueOf(DataStorage.questionImages[DataStorage.question - 1]);
+			String.valueOf(DataStorage.answers[DataStorage.question - 1][0]);
 		} catch(ArrayIndexOutOfBoundsException e) {
-			new Popup("outOfBounds");
+			Popup.Create("outOfBounds");
 		}
 		
 		title = new JLabel(DataStorage.question + ". " + DataStorage.questionText[DataStorage.question - 1]);
@@ -137,9 +138,16 @@ public class GUI {
 		workingArea.setLineWrap(true);
 		panel.add(workingArea);
 		
-		JRadioButton radio = new JRadioButton("asdf");
-		radio.setBounds(Scale(466, 136, 220, 20));
-		panel.add(radio);
+		JRadioButton[] answerRadios = {
+				new JRadioButton(DataStorage.answers[DataStorage.question - 1][0]),
+				new JRadioButton(DataStorage.answers[DataStorage.question - 1][1]),
+				new JRadioButton(DataStorage.answers[DataStorage.question - 1][2]),
+				new JRadioButton(DataStorage.answers[DataStorage.question - 1][3])
+		};
+		for(int i = 0; i < 4; i++) {
+			answerRadios[i].setBounds(Scale(466, 136 + (i * 48), 220, 20));
+			panel.add(answerRadios[i]);
+		}
 		
 		frame.repaint();
 	}

@@ -26,6 +26,7 @@ public class DataStorage {
 	public static int question = 0;
 	public static int questionAmount = 5;
 	public static boolean inQuiz = false;
+	public static String error;
 
 	// Text & Arrays:
 	public static String descriptionText = "This is a test for the Year 9 Trigonometry unit. "
@@ -35,6 +36,10 @@ public class DataStorage {
 										 + "<br><br><p align=\"center\">Good luck!</p>";
 	public static String[] questionText = {
 		"What is 1 + 1?"
+	};
+	public static String[][] answers = {
+		{ "1", "2", "3", "4" },
+		{ "5", "6", "7", "8" }
 	};
 	public static String[] questionImages = {
 		"obamna.jpg"

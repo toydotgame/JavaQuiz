@@ -8,12 +8,17 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-public class Popup {
-	JDialog frame = new JDialog(new JFrame(), "Fatal Error");
-	JPanel panel = new JPanel();
-	JButton button;
+public class Popup implements Runnable {
+	static JDialog frame = new JDialog(new JFrame(), "Fatal Error");
+	static JPanel panel = new JPanel();
+	static JButton button;
 	
-	public Popup(String error) {
+	public static void Create(String error) {
+		DataStorage.error = error;
+		Main.executor.execute(Main.popupThread);
+	}
+	
+	public void run() {
 		frame.setSize((int) Math.round(400 * DataStorage.windowScaleFactor), (int) Math.round(100 * DataStorage.windowScaleFactor) + GUI.yOffset); 
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
@@ -24,7 +29,7 @@ public class Popup {
 		JLabel errorText = new JLabel();
 		errorText.setBounds(GUI.Scale(20, 20, 360, 60));
 		errorText.setVerticalAlignment(SwingConstants.TOP);
-		switch(error) { // Contains pseudo-methods for creating each different kind of prompt.
+		switch(DataStorage.error) { // Contains pseudo-methods for creating each different kind of prompt.
 			case "exit":
 				frame.setTitle("Confirmation Dialog");
 				errorText.setText("Are you sure you want to quit? All progress will be lost.");
@@ -45,7 +50,7 @@ public class Popup {
 				button.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						frame.dispose();
-						GUI.frame.requestFocus();
+						GUI.panel.requestFocus();
 					}
 				});
 				button.setFont(DataStorage.genericText);
