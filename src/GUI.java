@@ -137,8 +137,8 @@ public class GUI {
 		workingArea.setLineWrap(true);
 		panel.add(workingArea);
 		
-		JRadioButton radio = new JRadioButton();
-		radio.setBounds(Scale(466, 136, 20, 20));
+		JRadioButton radio = new JRadioButton("asdf");
+		radio.setBounds(Scale(466, 136, 220, 20));
 		panel.add(radio);
 		
 		frame.repaint();

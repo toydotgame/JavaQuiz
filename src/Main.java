@@ -10,7 +10,10 @@ public class Main extends Thread {
 	public static void main(String[] args) {
 		try {
 			UIManager.setLookAndFeel(DataStorage.theme);
-		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {}
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
+			new Popup("");
+			return;
+		}
 		new GUI("main"); // Launches EDT thread (use for GUI only).
 	}
 	
