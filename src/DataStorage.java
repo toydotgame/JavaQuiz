@@ -28,6 +28,11 @@ public class DataStorage {
 	public static int questionAmount = 5;
 	public static boolean inQuiz = false;
 	public static String error;
+	public static String[] working = new String[questionAmount];
+	public static int[] selectedAnswer = new int[questionAmount];
+	public static int score;
+	public static String percentageScore = "0%";
+	public static String windowIcon = "obamna.jpg";
 
 	// Text & Arrays:
 	public static String descriptionText = "This is a test for the Year 9 Trigonometry unit. "
@@ -36,13 +41,31 @@ public class DataStorage {
 										 + "There will be 5 questions. "
 										 + "<br><br><p align=\"center\">Good luck!</p>";
 	public static String[] questionText = {
-		"What is 1 + 1?"
+		"What is 1 + 1?",
+		"What is BOGOS BINTED?",
+		"Question3",
+		"Question 4",
+		"yes 5"
 	};
 	public static String[][] answers = {
 		{ "1", "2", "3", "4" },
-		{ "5", "6", "7", "8" }
+		{ "5", "6", "7", "8" },
+		{ "1", "2", "3", "4" },
+		{ "5", "6", "7", "8" },
+		{ "1", "122", "32423 4324 3243234 323", "234 2344" }
+	};
+	public static int[] correctAnswers = {
+		1,
+		2,
+		3,
+		4,
+		1
 	};
 	public static String[] questionImages = {
-		"obamna.jpg"
+		"obamna.jpg",
+		"",
+		"sus.png",
+		"",
+		""
 	};
 }

@@ -30,6 +30,8 @@ public class GUI {
 	static JPanel panel = new JPanel();
 	static JLabel title;
 	static JLabel description;
+	public static JTextArea workingArea;
+	public static JRadioButton[] answerRadios;
 	
 	static int yOffset = frame.getToolkit().getScreenInsets(frame.getGraphicsConfiguration()).bottom;
 	
@@ -38,6 +40,7 @@ public class GUI {
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE); // Ignore Swing window close behaviour in favour of the window listener:
+		frame.setIconImage(new ImageIcon(GUI.class.getResource(DataStorage.windowIcon)).getImage());
 		frame.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
 				Main.Exit(false);
@@ -105,6 +108,29 @@ public class GUI {
 			public void keyPressed(KeyEvent e) {
 				if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
 					Popup.Create("exit");
+					return;
+				}
+				
+				for(int i = 0; i < 4; i++) {
+					answerRadios[i].setSelected(false);
+				}
+				switch(e.getKeyCode()) {
+					case KeyEvent.VK_1:
+						answerRadios[0].setSelected(true);
+						System.out.println(0);
+						break;
+					case KeyEvent.VK_2:
+						answerRadios[1].setSelected(true);
+						System.out.println(1);
+						break;
+					case KeyEvent.VK_3:
+						answerRadios[2].setSelected(true);
+						System.out.println(2);
+						break;
+					case KeyEvent.VK_4:
+						answerRadios[3].setSelected(true);
+						System.out.println(3);
+						break;
 				}
 			}
 		});
@@ -118,6 +144,7 @@ public class GUI {
 			String.valueOf(DataStorage.answers[DataStorage.question - 1][0]);
 		} catch(ArrayIndexOutOfBoundsException e) {
 			Popup.Create("outOfBounds");
+			return; // Prevent running of further commands which may print more stacks.
 		}
 		
 		title = new JLabel(DataStorage.question + ". " + DataStorage.questionText[DataStorage.question - 1]);
@@ -134,14 +161,24 @@ public class GUI {
 		image.setBorder(BorderFactory.createLineBorder(DataStorage.imageBorderColor, DataStorage.borderWidth));
 		panel.add(image);
 		
-		JTextArea workingArea = new JTextArea();
-		workingArea.setBounds(Scale(310, 100, 100, 240));
+		workingArea = new JTextArea();
+		workingArea.setBounds(Scale(310, 100, 125, 240));
 		workingArea.setBorder(BorderFactory.createLineBorder(DataStorage.imageBorderColor, DataStorage.borderWidth));
 		workingArea.setLineWrap(true);
+		workingArea.addKeyListener(new KeyAdapter() { // Have to "exit" the "editor" to give focus back to the panel for the close shortcut.
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+					panel.requestFocus();
+				}
+			}
+		});
+		try {
+			workingArea.setText(DataStorage.working[DataStorage.question - 1]);
+		} catch(Exception e) {}
 		panel.add(workingArea);
 		
 		ButtonGroup answerRadioGroup = new ButtonGroup();
-		JRadioButton[] answerRadios = {
+		answerRadios = new JRadioButton[] {
 				new JRadioButton(DataStorage.answers[DataStorage.question - 1][0]),
 				new JRadioButton(DataStorage.answers[DataStorage.question - 1][1]),
 				new JRadioButton(DataStorage.answers[DataStorage.question - 1][2]),
@@ -151,8 +188,12 @@ public class GUI {
 			answerRadios[i].setBounds(Scale(466, 136 + (i * 48), 220, 20)); // Default vertical alignment is centre, so the spacing works nicely.
 			answerRadios[i].setFont(DataStorage.answerText);
 			answerRadioGroup.add(answerRadios[i]);
+			answerRadios[i].setFocusable(false);
 			panel.add(answerRadios[i]);
 		}
+		try {
+			answerRadios[DataStorage.selectedAnswer[DataStorage.question - 1]].setSelected(true);
+		} catch(ArrayIndexOutOfBoundsException e) {} // If question hasn't been answered before, the selected radio index will be -1.
 		
 		JButton backButton = new JButton("← Back");
 		backButton.setBounds(Scale(50, 350, 100, 30));
@@ -160,10 +201,34 @@ public class GUI {
 		backButton.setFont(DataStorage.buttonText);
 		backButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// TODO: Back a question.
+				Main.BackQuestion();
 			}
 		});
 		panel.add(backButton);
+		if(DataStorage.question < 2) {
+			backButton.setVisible(false);
+		}
+		
+		JButton nextButton = new JButton("Next →");
+		nextButton.setBounds(Scale(550, 350, 100, 30));
+		nextButton.setFocusable(false);
+		nextButton.setFont(DataStorage.buttonText);
+		nextButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Main.NextQuestion();
+			}
+		});
+		panel.add(nextButton);
+		if(DataStorage.question > DataStorage.questionAmount) {
+			nextButton.setVisible(false);
+		} else if(DataStorage.question == DataStorage.questionAmount) {
+			nextButton.setText("Finish");
+			nextButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					Popup.Create("end");
+				}
+			});
+		}
 		
 		frame.repaint();
 	}
@@ -179,8 +244,12 @@ public class GUI {
 	}
 	
 	static ImageIcon LoadScaledImage(String path) {
-		ImageIcon icon = new ImageIcon(GUI.class.getResource(path));
-		icon = new ImageIcon(icon.getImage().getScaledInstance((int) Math.round(240 * DataStorage.windowScaleFactor), (int) Math.round(240 * DataStorage.windowScaleFactor), Image.SCALE_SMOOTH));
-		return icon;
+		try {
+			ImageIcon icon = new ImageIcon(GUI.class.getResource(path));
+			icon = new ImageIcon(icon.getImage().getScaledInstance((int) Math.round(240 * DataStorage.windowScaleFactor), (int) Math.round(240 * DataStorage.windowScaleFactor), Image.SCALE_SMOOTH));
+			return icon;
+		} catch(Exception e) { // Usually NullPointer.
+			return null; // No image exists.
+		}
 	}
 }
