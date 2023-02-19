@@ -10,17 +10,18 @@ import javax.swing.UnsupportedLookAndFeelException;
  * Main class that handles GUI events and logic.
  */
 
+@SuppressWarnings("unused")
 public class Main extends Thread {
 	static ExecutorService executor = Executors.newFixedThreadPool(1);
 	static Runnable popupThread = new Popup();
 	
 	public static void main(String[] args) {
-		try {
+		/*try {
 			UIManager.setLookAndFeel(DataStorage.theme);
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
 			Popup.Create("");
 			return;
-		}		
+		}*/
 		Popup.Init();
 		Arrays.fill(DataStorage.selectedAnswer, -1);
 		
