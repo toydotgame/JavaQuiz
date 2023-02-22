@@ -124,6 +124,13 @@ public class GUI {
 					}
 					Main.NextQuestion();
 					return;
+				} else if(e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
+					if(DataStorage.selectedAnswer[DataStorage.question - 1] >= 0) {
+						return; // In this case, you can't go back on a question that's already answered, but you can go back to one __from__ an unanswered quesiton.
+					}
+					
+					Main.BackQuestion();
+					return;
 				}
 				
 				for(int i = 0; i < 4; i++) {
