@@ -111,6 +111,19 @@ public class GUI {
 				if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
 					Popup.Create("exit");
 					return;
+				} else if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+					// Save answers and check if the current question has been answered. If it hasn't, quit the operation.
+					Main.SaveAnswers();
+					if(DataStorage.selectedAnswer[DataStorage.question - 1] < 0) {
+						return;
+					}
+					
+					if(DataStorage.question == DataStorage.questionAmount) {
+						Popup.Create("end");
+						return;
+					}
+					Main.NextQuestion();
+					return;
 				}
 				
 				for(int i = 0; i < 4; i++) {

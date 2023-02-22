@@ -1,5 +1,7 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -33,6 +35,7 @@ public class Popup implements Runnable {
 		frame.setLocationRelativeTo(null);
 		
 		panel.setLayout(null);
+		panel.setFocusable(true);
 		frame.add(panel);
 		
 		errorText.setBounds(GUI.Scale(20, 20, 360, 60));
@@ -42,6 +45,16 @@ public class Popup implements Runnable {
 			case "exit":
 				frame.setTitle("Confirmation Dialog");
 				errorText.setText("Are you sure you want to quit? All progress will be lost.");
+				panel.addKeyListener(new KeyAdapter() { // Emulating Yes/No button presses.
+					public void keyPressed(KeyEvent e) {
+						if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+							frame.dispose();
+							GUI.panel.requestFocus();
+						} else if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+							Main.Exit(true);
+						}
+					}
+				});
 				
 				//confirmButton = new JButton("Yes");
 				confirmButton.setBounds(GUI.Scale(230, 60, 60, 20));
@@ -69,6 +82,13 @@ public class Popup implements Runnable {
 				break;
 			case "outOfBounds":
 				errorText.setText("Out of Bounds Exception: This question does not exist.");
+				panel.addKeyListener(new KeyAdapter() {
+					public void keyPressed(KeyEvent e) {
+						if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+							Main.Exit(true);
+						}
+					}
+				});
 
 				button = new JButton("Exit");
 				button.setBounds(GUI.Scale(300, 60, 60, 20));
@@ -84,6 +104,18 @@ public class Popup implements Runnable {
 				break;
 			case "end":
 				frame.setTitle("Confirmation Dialog");
+				panel.addKeyListener(new KeyAdapter() {
+					public void keyPressed(KeyEvent e) {
+						if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+							frame.dispose();
+							GUI.panel.requestFocus();
+						} else if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+							Main.Grade();
+							frame.dispose();
+							GUI.panel.requestFocus();
+						}
+					}
+				});
 				
 				Main.SaveAnswers();
 				for(int i = 0; i < DataStorage.selectedAnswer.length; i++) {
@@ -124,6 +156,13 @@ public class Popup implements Runnable {
 				break;
 			default:
 				errorText.setText("An unknown error occured.");
+				panel.addKeyListener(new KeyAdapter() {
+					public void keyPressed(KeyEvent e) {
+						if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+							Main.Exit(true);
+						}
+					}
+				});
 				
 				button = new JButton("Exit");
 				button.setBounds(GUI.Scale(300, 60, 60, 20));
