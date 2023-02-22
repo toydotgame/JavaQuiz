@@ -81,6 +81,16 @@ public class GUI {
 		title.setFont(DataStorage.titleText);
 		panel.add(title);
 		
+		panel.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+					Main.Exit(false);
+				} else if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+					Main.StartQuiz();
+				}
+			}
+		});
+		
 		description = new JLabel("<html><p align=\"justify\">" + DataStorage.descriptionText + "</p></html>"); // HTML parsing allows for word wrap.
 		description.setBounds(Scale(75, 95, 550, 195));
 		description.setHorizontalAlignment(JLabel.LEFT);

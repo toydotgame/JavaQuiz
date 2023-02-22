@@ -10,6 +10,11 @@ import javax.swing.UnsupportedLookAndFeelException;
  * Main class that handles GUI events and logic.
  */
 
+/*
+ * TODO:
+ * - Seperate paralell threaded class for the key listeners to run on, allowing the EDT/GUI thread to work fast.
+ */
+
 @SuppressWarnings("unused")
 public class Main extends Thread {
 	static ExecutorService executor = Executors.newFixedThreadPool(1);
