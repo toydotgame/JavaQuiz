@@ -36,7 +36,6 @@ public class Popup implements Runnable {
 		
 		panel.setLayout(null);
 		panel.setFocusable(true);
-		panel.requestFocus(); // Needed for the first switch case to work for some reason?
 		frame.add(panel);
 		
 		errorText.setBounds(GUI.Scale(20, 20, 360, 60));
