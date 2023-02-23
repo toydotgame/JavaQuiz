@@ -68,4 +68,30 @@ public class KeyListener implements Runnable {
 			GUI.panel.requestFocus();
 		}
 	}
+	
+	public static void PopupExit(KeyEvent e) {
+		if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+			Popup.frame.dispose();
+			GUI.panel.requestFocus();
+		} else if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+			Main.Exit(true);
+		}
+	}
+	
+	public static void PopupGeneric(KeyEvent e) {
+		if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+			Main.Exit(true);
+		}
+	}
+	
+	public static void PopupEnd(KeyEvent e) {
+		if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+			Popup.frame.dispose();
+			GUI.panel.requestFocus();
+		} else if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+			Main.Grade();
+			Popup.frame.dispose();
+			GUI.panel.requestFocus();
+		}
+	}
 }

@@ -47,12 +47,7 @@ public class Popup implements Runnable {
 				errorText.setText("Are you sure you want to quit? All progress will be lost.");
 				panel.addKeyListener(new KeyAdapter() { // Emulating Yes/No button presses.
 					public void keyPressed(KeyEvent e) {
-						if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-							frame.dispose();
-							GUI.panel.requestFocus();
-						} else if(e.getKeyCode() == KeyEvent.VK_ENTER) {
-							Main.Exit(true);
-						}
+						Main.keyExecutor.submit(() -> KeyListener.PopupExit(e));
 					}
 				});
 				
@@ -83,9 +78,7 @@ public class Popup implements Runnable {
 				errorText.setText("Out of Bounds Exception: This question does not exist.");
 				panel.addKeyListener(new KeyAdapter() {
 					public void keyPressed(KeyEvent e) {
-						if(e.getKeyCode() == KeyEvent.VK_ENTER) {
-							Main.Exit(true);
-						}
+						Main.keyExecutor.submit(() -> KeyListener.PopupGeneric(e));
 					}
 				});
 
@@ -105,14 +98,7 @@ public class Popup implements Runnable {
 				frame.setTitle("Confirmation Dialog");
 				panel.addKeyListener(new KeyAdapter() {
 					public void keyPressed(KeyEvent e) {
-						if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-							frame.dispose();
-							GUI.panel.requestFocus();
-						} else if(e.getKeyCode() == KeyEvent.VK_ENTER) {
-							Main.Grade();
-							frame.dispose();
-							GUI.panel.requestFocus();
-						}
+						Main.keyExecutor.submit(() -> KeyListener.PopupEnd(e));
 					}
 				});
 				
@@ -127,7 +113,6 @@ public class Popup implements Runnable {
 					}
 				}
 				
-				//confirmButton = new JButton("Yes");
 				confirmButton.setBounds(GUI.Scale(230, 60, 60, 20));
 				confirmButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
@@ -157,9 +142,7 @@ public class Popup implements Runnable {
 				errorText.setText("An unknown error occured.");
 				panel.addKeyListener(new KeyAdapter() {
 					public void keyPressed(KeyEvent e) {
-						if(e.getKeyCode() == KeyEvent.VK_ENTER) {
-							Main.Exit(true);
-						}
+						Main.keyExecutor.submit(() -> KeyListener.PopupGeneric(e));
 					}
 				});
 				
