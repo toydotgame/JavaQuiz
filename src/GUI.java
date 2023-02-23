@@ -114,52 +114,7 @@ public class GUI {
 		panel.removeAll();
 		panel.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
-				if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-					Popup.Create("exit");
-					return;
-				} else if(e.getKeyCode() == KeyEvent.VK_ENTER) {
-					// Save answers and check if the current question has been answered. If it hasn't, quit the operation.
-					Main.SaveAnswers();
-					if(DataStorage.selectedAnswer[DataStorage.question - 1] < 0) {
-						return;
-					}
-					
-					if(DataStorage.question == DataStorage.questionAmount) {
-						Popup.Create("end");
-						return;
-					}
-					Main.NextQuestion();
-					return;
-				} else if(e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
-					if(DataStorage.selectedAnswer[DataStorage.question - 1] >= 0) {
-						return; // In this case, you can't go back on a question that's already answered, but you can go back to one __from__ an unanswered quesiton.
-					}
-					
-					Main.BackQuestion();
-					return;
-				}
-				
-				for(int i = 0; i < 4; i++) {
-					answerRadios[i].setSelected(false);
-				}
-				switch(e.getKeyCode()) {
-					case KeyEvent.VK_1:
-						answerRadios[0].setSelected(true);
-						DataStorage.selectedAnswer[DataStorage.question - 1] = 0; // Bug #1: setSelected(true) is not detected in Main.SaveAnswers() when launched from a keyboard listener. Must save the answer manually in the keyboard listener code as a workaround.
-						break;
-					case KeyEvent.VK_2:
-						answerRadios[1].setSelected(true);
-						DataStorage.selectedAnswer[DataStorage.question - 1] = 1;
-						break;
-					case KeyEvent.VK_3:
-						answerRadios[2].setSelected(true);
-						DataStorage.selectedAnswer[DataStorage.question - 1] = 2;
-						break;
-					case KeyEvent.VK_4:
-						answerRadios[3].setSelected(true);
-						DataStorage.selectedAnswer[DataStorage.question - 1] = 3;
-						break;
-				}
+				Main.keyExecutor.submit(() -> KeyListener.QuestionPanel(e));
 			}
 		});
 		
@@ -195,9 +150,7 @@ public class GUI {
 		workingArea.setLineWrap(true);
 		workingArea.addKeyListener(new KeyAdapter() { // Have to "exit" the "editor" to give focus back to the panel for the close shortcut.
 			public void keyPressed(KeyEvent e) {
-				if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-					panel.requestFocus();
-				}
+				Main.keyExecutor.submit(() -> KeyListener.QuestionWorkingArea(e));
 			}
 		});
 		try {
