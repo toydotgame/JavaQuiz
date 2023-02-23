@@ -26,7 +26,7 @@ public class Popup implements Runnable {
 	
 	public static void Create(String error) {
 		DataStorage.error = error;
-		Main.executor.execute(Main.popupThread);
+		Main.popupExecutor.execute(Main.popupThread);
 	}
 	
 	public void run() {
@@ -35,7 +35,7 @@ public class Popup implements Runnable {
 		frame.setLocationRelativeTo(null);
 		
 		panel.setLayout(null);
-		panel.setFocusable(true);
+		panel.setFocusable(true); // Panel is all that's focusable in order for key listeners to work.
 		frame.add(panel);
 		
 		errorText.setBounds(GUI.Scale(20, 20, 360, 60));

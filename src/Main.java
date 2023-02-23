@@ -10,17 +10,20 @@ import javax.swing.UnsupportedLookAndFeelException;
  * Main class that handles GUI events and logic.
  */
 
-/*
- * TODO:
- * - Seperate paralell threaded class for the key listeners to run on, allowing the EDT/GUI thread to work fast.
- */
-
 @SuppressWarnings("unused")
 public class Main extends Thread {
-	static ExecutorService executor = Executors.newFixedThreadPool(1);
+	static ExecutorService popupExecutor = Executors.newFixedThreadPool(1);
 	static Runnable popupThread = new Popup();
+	static ExecutorService keyExecutor = Executors.newCachedThreadPool(); // Calling multiple threads, which can be reused.
+	static Runnable keyThread = new KeyListener();
 	
 	public static void main(String[] args) {
+		//keyExecutor.execute(keyThread);
+		//new Thread(KeyListener::differentMethod).start();
+		keyExecutor.submit(KeyListener::differentMethod);
+		keyExecutor.submit(KeyListener::differentMethod);
+		System.out.println("Thread: " + Thread.currentThread() + ", running at " + System.currentTimeMillis());
+		
 		/*try {
 			UIManager.setLookAndFeel(DataStorage.theme);
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
