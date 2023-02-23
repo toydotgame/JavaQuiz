@@ -57,7 +57,6 @@ public class Popup implements Runnable {
 					}
 				});
 				
-				//confirmButton = new JButton("Yes");
 				confirmButton.setBounds(GUI.Scale(230, 60, 60, 20));
 				confirmButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
@@ -183,5 +182,6 @@ public class Popup implements Runnable {
 		
 		frame.toFront();
 		frame.setVisible(true);
+		panel.requestFocus();
 	}
 }

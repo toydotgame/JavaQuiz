@@ -60,6 +60,9 @@ public class Main extends Thread {
 		DataStorage.working[DataStorage.question - 1] = GUI.workingArea.getText();
 		int selectedRadio = -1;
 		for(int i = 0; i < 4; i++) {
+			/*System.out.println("Iteration " + i + ":\n" // Bug here where if() is not triggered on keyboard-activated SaveAnswers().
+							 + "    Selected Radio: " + selectedRadio + ", isSelected() = " + GUI.answerRadios[i].isSelected() + "\n"
+							 + "    Selected Answer in Storage (unset so far): " + DataStorage.selectedAnswer[DataStorage.question - 1]);*/
 			if(GUI.answerRadios[i].isSelected()) {
 				selectedRadio = i;
 			}

@@ -149,19 +149,19 @@ public class GUI {
 				switch(e.getKeyCode()) {
 					case KeyEvent.VK_1:
 						answerRadios[0].setSelected(true);
-						System.out.println(0);
+						DataStorage.selectedAnswer[DataStorage.question - 1] = 0; // Bug #1: setSelected(true) is not detected in Main.SaveAnswers() when launched from a keyboard listener. Must save the answer manually in the keyboard listener code as a workaround.
 						break;
 					case KeyEvent.VK_2:
 						answerRadios[1].setSelected(true);
-						System.out.println(1);
+						DataStorage.selectedAnswer[DataStorage.question - 1] = 1;
 						break;
 					case KeyEvent.VK_3:
 						answerRadios[2].setSelected(true);
-						System.out.println(2);
+						DataStorage.selectedAnswer[DataStorage.question - 1] = 2;
 						break;
 					case KeyEvent.VK_4:
 						answerRadios[3].setSelected(true);
-						System.out.println(3);
+						DataStorage.selectedAnswer[DataStorage.question - 1] = 3;
 						break;
 				}
 			}
