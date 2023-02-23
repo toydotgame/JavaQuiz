@@ -15,14 +15,11 @@ public class Main extends Thread {
 	static ExecutorService popupExecutor = Executors.newFixedThreadPool(1);
 	static Runnable popupThread = new Popup();
 	static ExecutorService keyExecutor = Executors.newCachedThreadPool(); // Calling multiple threads, which can be reused.
-	static Runnable keyThread = new KeyListener();
 	
 	public static void main(String[] args) {
 		//keyExecutor.execute(keyThread);
 		//new Thread(KeyListener::differentMethod).start();
-		keyExecutor.submit(KeyListener::differentMethod);
-		keyExecutor.submit(KeyListener::differentMethod);
-		System.out.println("Thread: " + Thread.currentThread() + ", running at " + System.currentTimeMillis());
+		//keyExecutor.submit(KeyListener::differentMethod);
 		
 		/*try {
 			UIManager.setLookAndFeel(DataStorage.theme);

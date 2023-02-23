@@ -83,11 +83,7 @@ public class GUI {
 		
 		panel.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
-				if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-					Main.Exit(false);
-				} else if(e.getKeyCode() == KeyEvent.VK_ENTER) {
-					Main.StartQuiz();
-				}
+				Main.keyExecutor.submit(() -> KeyListener.MainPanel(e));
 			}
 		});
 		
