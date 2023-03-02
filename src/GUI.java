@@ -113,6 +113,9 @@ public class GUI {
 	}
 	
 	public static void Question(int question) {
+		if(DataStorage.ended) {
+			return;
+		}
 		DataStorage.inQuiz = true;
 		DataStorage.question = question;
 		panel.removeAll();
@@ -273,6 +276,7 @@ public class GUI {
 	
 	public static void End() {
 		DataStorage.inQuiz = false;
+		DataStorage.ended = true;
 		panel.removeAll();
 		frame.setTitle("Year 9 Trigonometry Quiz – End");
 		

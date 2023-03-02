@@ -54,6 +54,7 @@ public class DataStorage {
 		"#acb334", // Apple
 		"#69b34c"  // Green
 	};
+	public static boolean ended = false;
 
 	// Text & Arrays:
 	public static String descriptionText = "This is a test for the Year 9 Trigonometry unit. "
@@ -86,7 +87,7 @@ public class DataStorage {
 		"obamna.jpg",
 		"media/favicon.png",
 		"media/favicon.png",
-		"media/favicon.png",
+		"media/.png",
 		"media/favicon.png"
 	};
 	public static String[] feedback = {
