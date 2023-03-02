@@ -118,6 +118,10 @@ public class GUI {
 		panel.removeAll();
 		panel.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
+				if(!DataStorage.inQuiz) { // Prevent anything from being run outside of the quiz.
+					return;
+				}
+				
 				if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
 					Popup.Create("exit");
 					return;
