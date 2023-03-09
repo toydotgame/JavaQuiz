@@ -8,10 +8,12 @@ import java.awt.Font;
  */
 
 public class DataStorage {
+	public static double windowScaleFactor = 1.5;
+
 	// Internal:
-	static int titleSize = 38;
-	static int textSize = 20;
-	static int buttonTextSize = 28;
+	static int titleSize = (int) Math.round(26 * windowScaleFactor);
+	static int textSize = (int) Math.round(14 * windowScaleFactor);
+	static int buttonTextSize = (int) Math.round(19 * windowScaleFactor);
 	static String font = "Tahoma";
 	
 	// Public:
@@ -27,7 +29,6 @@ public class DataStorage {
 		Color.decode("#1c1cf0") // Blue
 	};
 	public static Color buttonTextColor = Color.decode("#101010");
-	public static double windowScaleFactor = 1.5;
 	public static int borderWidth = 3;
 	public static Font titleText = new Font(font, Font.BOLD, titleSize);
 	public static Font genericText = new Font(font, Font.PLAIN, textSize);
