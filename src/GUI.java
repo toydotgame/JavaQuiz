@@ -8,6 +8,8 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -51,6 +53,8 @@ public class GUI {
 				
 		panel.setLayout(null);
 		panel.setFocusable(true);
+		panel.setBackground(DataStorage.backgroundColor);
+		panel.setForeground(DataStorage.textColor);
 		frame.add(panel);
 		
 		frame.setVisible(true); // Frame created before drawing content due to popup drawing issues.
@@ -73,12 +77,20 @@ public class GUI {
 	}
 	
 	public static void Main() {
-		title = new JLabel("Year 9 Mathematics Quiz");
+		title = new JLabel();
+		try {
+			ImageIcon icon = new ImageIcon(GUI.class.getResource(DataStorage.titleGif));
+			icon = new ImageIcon(icon.getImage().getScaledInstance((int) Math.round(427 * DataStorage.windowScaleFactor), (int) Math.round(53 * DataStorage.windowScaleFactor), Image.SCALE_DEFAULT));
+			title.setIcon(icon);
+		} catch(Exception e) {
+			title.setText("Year 9 Mathematics Quiz");
+		}
 		title.setBounds(Scale(50, 25, 600, 50));
 		title.setBorder(BorderFactory.createLineBorder(DataStorage.borderColor, DataStorage.borderWidth));
 		title.setHorizontalAlignment(JLabel.CENTER);
 		title.setVerticalAlignment(JLabel.CENTER);
 		title.setFont(DataStorage.titleText);
+		title.setForeground(panel.getForeground()); // Inherit panel colour.
 		panel.add(title);
 		
 		panel.addKeyListener(new KeyAdapter() {
@@ -96,6 +108,7 @@ public class GUI {
 		description.setHorizontalAlignment(JLabel.LEFT);
 		description.setVerticalAlignment(JLabel.TOP);
 		description.setFont(DataStorage.genericText);
+		description.setForeground(panel.getForeground());
 		panel.add(description);
 		
 		JButton startButton = new JButton("Start");
@@ -192,6 +205,7 @@ public class GUI {
 		title.setHorizontalAlignment(JLabel.CENTER);
 		title.setVerticalAlignment(JLabel.CENTER);
 		title.setFont(DataStorage.titleText);
+		title.setForeground(panel.getForeground());
 		panel.add(title);
 		
 		JLabel image = new JLabel();
@@ -214,14 +228,16 @@ public class GUI {
 		try {
 			workingArea.setText(DataStorage.working[DataStorage.question - 1]);
 		} catch(Exception e) {}
+		workingArea.setBackground(DataStorage.workingBackgroundColor);
+		workingArea.setForeground(panel.getForeground());
 		panel.add(workingArea);
 		
 		ButtonGroup answerRadioGroup = new ButtonGroup();
 		answerRadios = new JRadioButton[] {
-				new JRadioButton(DataStorage.answers[DataStorage.question - 1][0]),
-				new JRadioButton(DataStorage.answers[DataStorage.question - 1][1]),
-				new JRadioButton(DataStorage.answers[DataStorage.question - 1][2]),
-				new JRadioButton(DataStorage.answers[DataStorage.question - 1][3])
+				new JRadioButton("  " + DataStorage.answers[DataStorage.question - 1][0]), // `"  " +` for padding.
+				new JRadioButton("  " + DataStorage.answers[DataStorage.question - 1][1]),
+				new JRadioButton("  " + DataStorage.answers[DataStorage.question - 1][2]),
+				new JRadioButton("  " + DataStorage.answers[DataStorage.question - 1][3])
 		};
 		AddRadioActionListeners();
 		for(int i = 0; i < 4; i++) {
@@ -230,6 +246,8 @@ public class GUI {
 			answerRadioGroup.add(answerRadios[i]);
 			answerRadios[i].setFocusable(false);
 			answerRadios[i].setIcon(LoadScaledImage(DataStorage.unselIcons[i], 20));
+			answerRadios[i].setBackground(panel.getBackground());
+			answerRadios[i].setForeground(DataStorage.buttonColors[i]);
 			panel.add(answerRadios[i]);
 		}
 		try {
@@ -290,6 +308,7 @@ public class GUI {
 		title.setHorizontalAlignment(JLabel.CENTER);
 		title.setVerticalAlignment(JLabel.CENTER);
 		title.setFont(DataStorage.titleText);
+		title.setForeground(panel.getForeground());
 		panel.add(title);
 		
 		description = new JLabel("<html><p align=\"justify\">" + DataStorage.feedback[DataStorage.gradeID] + "</p>"
@@ -298,6 +317,7 @@ public class GUI {
 		description.setHorizontalAlignment(JLabel.LEFT);
 		description.setVerticalAlignment(JLabel.TOP);
 		description.setFont(DataStorage.genericText);
+		description.setForeground(panel.getForeground());
 		panel.add(description);
 		
 		frame.repaint();

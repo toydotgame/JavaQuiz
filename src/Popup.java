@@ -36,11 +36,14 @@ public class Popup implements Runnable {
 		
 		panel.setLayout(null);
 		panel.setFocusable(true);
+		panel.setBackground(DataStorage.backgroundColor);
+		panel.setForeground(DataStorage.textColor);
 		frame.add(panel);
 		
 		errorText.setBounds(GUI.Scale(20, 20, 360, 60));
 		errorText.setVerticalAlignment(SwingConstants.TOP);
 		errorText.setFont(DataStorage.genericText);
+		errorText.setForeground(panel.getForeground());
 		switch(DataStorage.error) { // Contains pseudo-methods for creating each different kind of prompt.
 			case "exit":
 				frame.setTitle("Confirmation Dialog");

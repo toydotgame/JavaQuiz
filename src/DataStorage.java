@@ -17,6 +17,16 @@ public class DataStorage {
 	// Public:
 	public static Color borderColor = Color.decode("#008080");
 	public static Color imageBorderColor = Color.decode("#0c0c0c");
+	public static Color textColor = Color.decode("#ffffff");
+	public static Color backgroundColor = Color.decode("#1c1c1c");
+	public static Color workingBackgroundColor = Color.decode("#090909");
+	public static Color[] buttonColors = {
+		Color.decode("#f01c1c"), // Red
+		Color.decode("#1cf01c"), // Green
+		Color.decode("#f0f01c"), // Yellow
+		Color.decode("#1c1cf0") // Blue
+	};
+	public static Color buttonTextColor = Color.decode("#101010");
 	public static double windowScaleFactor = 1.5;
 	public static int borderWidth = 3;
 	public static Font titleText = new Font(font, Font.BOLD, titleSize);
@@ -33,6 +43,7 @@ public class DataStorage {
 	public static int score;
 	public static int percentageScore = 0;
 	public static String windowIcon = "media/favicon.png";
+	public static String titleGif = "media/title.gif";
 	public static String[] unselIcons = {
 		"media/radios/unsel/red.png",
 		"media/radios/unsel/green.png",
