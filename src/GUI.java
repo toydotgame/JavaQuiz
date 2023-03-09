@@ -185,7 +185,7 @@ public class GUI {
 			}
 		});
 		
-		frame.setTitle("Trigonometry Quiz – Question " + DataStorage.question + " of " + DataStorage.questionAmount);
+		frame.setTitle("Trigonometry Quiz – Question " + DataStorage.question + " of " + DataStorage.questionAmount); // TODO: Bug where this increments up to the right number each time the question is loaded. I think this code is being run multiple times per increment. (e.g: on question 4 load it will load questions 1,2,3,4 in succession)
 		
 		// Check to see that both question, answers, and image exists, otherwise exit:
 		try {
