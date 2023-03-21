@@ -322,7 +322,10 @@ public class GUI {
 	}
 	
 	static Rectangle Scale(int x, int y, int width, int height) {
-		return new Rectangle((int) Math.round(x * DataStorage.windowScaleFactor), (int) Math.round(y * DataStorage.windowScaleFactor), (int) Math.round(width * DataStorage.windowScaleFactor), (int) Math.round(height * DataStorage.windowScaleFactor));
+		return new Rectangle((int) Math.round(x * DataStorage.windowScaleFactor),
+				(int) Math.round(y * DataStorage.windowScaleFactor),
+				(int) Math.round(width * DataStorage.windowScaleFactor),
+				(int) Math.round(height * DataStorage.windowScaleFactor));
 	}
 	
 	static ImageIcon LoadScaledImage(String path, int size) {

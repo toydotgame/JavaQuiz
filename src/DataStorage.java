@@ -75,18 +75,18 @@ public class DataStorage {
 										 + "There will be 5 questions. "
 										 + "<br><br><p align=\"center\">Good luck!</p>";
 	public static String[] questionText = {
-		"What is 1 + 1?",
-		"What is BOGOS BINTED?",
-		"Question3",
-		"Question 4",
-		"yes 5"
+		"Solve for angle θ in this diagram.",
+		"Solve for θ°.",
+		"Solve for side b.",
+		"Solve for y.",
+		"How long is side x?"
 	};
 	public static String[][] answers = {
-		{ "1", "2", "3", "4" },
+		{ "30°", "37", "37°", "36.87°" },
 		{ "5", "6", "7", "8" },
 		{ "1", "2", "3", "4" },
 		{ "5", "6", "7", "8" },
-		{ "1", "122", "32423 4324 3243234 323", "234 2344" }
+		{ "3", "5", "4", "30" }
 	};
 	public static int[] correctAnswers = {
 		1,
@@ -96,11 +96,11 @@ public class DataStorage {
 		1
 	};
 	public static String[] questionImages = {
+		"media/questions/1.png",
 		"obamna.jpg",
 		"media/favicon.png",
-		"media/favicon.png",
 		"media/.png",
-		"media/favicon.png"
+		"media/questions/1.png"
 	};
 	public static String[] feedback = {
 		"How‽",        // E
