@@ -57,7 +57,10 @@ public class Main extends Thread {
 	}
 	
 	public static void SaveAnswers() {
-		DataStorage.working[DataStorage.question - 1] = GUI.workingArea.getText();
+		if(GUI.workingArea.getText() != null) {
+			DataStorage.working[DataStorage.question - 1] = GUI.workingArea.getText();
+		}
+		
 		int selectedRadio = -1;
 		for(int i = 0; i < 4; i++) {
 			/*System.out.println("Iteration " + i + ":\n" // Bug here where if() is not triggered on keyboard-activated SaveAnswers().
